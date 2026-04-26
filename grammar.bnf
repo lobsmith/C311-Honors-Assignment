@@ -1,0 +1,56 @@
+<program> ::= <statement_list>
+
+<statement_list> ::= <statement>
+                   | <statement> <statement_list>
+
+<statement> ::= <assignment>
+              | <print_stmt>
+              | <if_stmt>
+              | <while_stmt>
+
+<assignment> ::= <identifier> "=" <expression> ";"
+
+<print_stmt> ::= "print" "(" <expression> ")" ";"
+
+<if_stmt> ::= "if" "(" <expression> ")" <block>
+            | "if" "(" <expression> ")" <block> "else" <block>
+
+<while_stmt> ::= "while" "(" <expression> ")" <block>
+
+<block> ::= "{" <statement_list> "}"
+
+<expression> ::= <term>
+               | <term> "+" <expression>
+               | <term> "-" <expression>
+
+<term> ::= <factor>
+         | <factor> "*" <term>
+         | <factor> "/" <term>
+
+<factor> ::= <number>
+           | <identifier>
+           | "(" <expression> ")"
+
+<identifier> ::= <letter>
+               | <letter> <identifier_tail>
+
+<identifier_tail> ::= <letter>
+                    | <digit>
+                    | "_"
+                    | <letter> <identifier_tail>
+                    | <digit> <identifier_tail>
+                    | "_" <identifier_tail>
+
+<number> ::= <digit>
+           | <digit> <number_tail>
+
+<number_tail> ::= <digit>
+                | <digit> <number_tail>
+
+<letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g"
+           | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+           | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+           | "v" | "w" | "x" | "y" | "z"
+
+<digit> ::= "0" | "1" | "2" | "3" | "4"
+          | "5" | "6" | "7" | "8" | "9"
