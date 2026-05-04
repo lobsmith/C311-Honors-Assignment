@@ -1,11 +1,3 @@
-(* STATEMENTS THAT WORK SO FAR:
- * Printing terms and expressions without quotes (no floats allowed in anything)
- * Variable assignments
- * FURTHER DEBUGGING:
- * Conditional statements (may be okay since BLOCKS cannot be tested)
- * Arithmetic expressions and variable types
- * *)
-
 <program> ::= <statement_list>
 
 <statement_list> ::= <statement>
@@ -25,17 +17,26 @@
 
 <while_stmt> ::= "while" "(" <expression> "):" <block>
 
-<block> ::= "{" <statement_list> "}"
+(* allow empty blocks - using C-style blocks for ease of testing *)
+<block> ::= "{" "}"
+          | "{" <statement_list> "}"
 
-<expression> ::= <term>
-               | <term> "+" <expression>
-               | <term> "-" <expression>
+<arith_expr> ::= <arith_expr> "+" <term>
+               | <arith_expr> "-" <term>
+               | <term>
 
-<term> ::= <factor>
-         | <factor> "*" <term>
-         | <factor> "/" <term>
+<expression> ::= <arith_expr>
+               | <arith_expr> <comp_op> <arith_expr>
 
-<factor> ::= <number>
+<comp_op> ::= "==" | "!=" | "<" | ">" | "<=" | ">="
+
+(* parse term - Python is left-associative *)
+<term> ::= <term> "*" <factor>
+         | <term> "/" <factor>
+         | <factor>
+
+<factor> ::= "-" <factor>
+           | <number>
            | <identifier>
            | "(" <expression> ")"
 
@@ -59,7 +60,7 @@
            | "h" | "i" | "j" | "k" | "l" | "m" | "n"
            | "o" | "p" | "q" | "r" | "s" | "t" | "u"
            | "v" | "w" | "x" | "y" | "z"
-           | "A" | "B" | "C" | "D" | "E" | "F" | "F"
+           | "A" | "B" | "C" | "D" | "E" | "F" | "G"
            | "H" | "I" | "J" | "K" | "L" | "M" | "N"
            | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
            | "V" | "W" | "X" | "Y" | "Z"
